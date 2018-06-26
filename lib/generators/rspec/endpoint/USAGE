@@ -1,0 +1,8 @@
+Description:
+  Generate a spec/requests file for specified action of controller
+
+Example:
+  rails generate rspec:endpoint create users
+
+  This will create:
+    create_spec.rb in spec/requests/users directory
