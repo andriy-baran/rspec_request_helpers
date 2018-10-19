@@ -4,7 +4,10 @@ This gem provides few tools to make testing of API endpoint in your Rails applic
 This rules were influenced by real projects experience so
 In order to use it in your `rspec/requests` specs you need to follow one rule:
 
-    For every test example you need to define `path`, `valid_headers`, `valid_params`, and `valid_response`.
+    For every test example you need to define `path`, `valid_headers`, `valid_params`, and `expected_response`.
+
+    NOTE: version 0.1.1 introduced the helpers which ensure naming conventions. They have identical names and in fact are
+    wrappers around RSpec `let` functionality.
 
 So what you'll got for that? Few handy methods for the testing routine
 

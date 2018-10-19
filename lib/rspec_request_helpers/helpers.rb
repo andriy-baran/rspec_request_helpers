@@ -1,5 +1,27 @@
 module RspecRequestHelpers
   module Helpers
+    module ClassMethods
+      def path(&block)
+        let(:path, &block)
+      end
+
+      def valid_params(&block)
+        let(:valid_params, &block)
+      end
+
+      def valid_headers(&block)
+        let(:valid_headers, &block)
+      end
+
+      def expected_response(&block)
+        let(:expected_response, &block)
+      end
+    end
+
+    def self.included(klass)
+      klass.extend ClassMethods
+    end
+
     def object(hash)
       OpenStruct.new(hash)
     end
@@ -21,15 +43,15 @@ module RspecRequestHelpers
     end
 
     def assert_body
-      expect(response.body).to eq valid_response
+      expect(response.body).to eq expected_response
     end
 
     def assert_response_object
-      expect(response_object).to have_attributes(valid_response)
+      expect(response_object).to have_attributes(expected_response)
     end
 
     def assert_response_body
-      expect(response_body).to eq(valid_response)
+      expect(response_body).to eq(expected_response)
     end
 
     def self.generate_helpers
