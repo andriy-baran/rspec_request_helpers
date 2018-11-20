@@ -40,6 +40,25 @@ module RspecRequestHelpers
         self.class_eval(rspec_factory)
       end
 
+      class VarsDSL
+        def initialize(klass)
+          @klass = klass
+        end
+
+        def method_missing(method_name, *args, &block)
+          case method_name
+          when /!$/
+            @klass.class_eval { let!(:"#{method_name.to_s.sub(/!$/,'')}", &block) }
+          else
+            @klass.class_eval { let(method_name, &block) }
+          end
+        end
+      end
+
+      def vars(&block)
+        VarsDSL.new(self).instance_eval(&block)
+      end
+
       def path(&block)
         let(:path, &block)
       end
