@@ -63,12 +63,12 @@ module RspecRequestHelpers
         let(:path, &block)
       end
 
-      def valid_params(&block)
-        let(:valid_params, &block)
+      def params(&block)
+        let(:params, &block)
       end
 
-      def valid_headers(&block)
-        let(:valid_headers, &block)
+      def headers(&block)
+        let(:headers, &block)
       end
 
       def expected_response(&block)
@@ -116,9 +116,9 @@ module RspecRequestHelpers
       %i(get post put patch delete).each do |http_verb|
         define_method :"do_#{http_verb}" do
           if Rails::VERSION::MAJOR >= 5
-            public_send(http_verb, path, params: valid_params, headers: valid_headers)
+            public_send(http_verb, path, params: params, headers: headers)
           else
-            public_send(http_verb, path, valid_params, valid_headers)
+            public_send(http_verb, path, params, headers)
           end
         end
 
