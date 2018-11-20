@@ -1,10 +1,13 @@
 # Rspec Request Helpers
 
 This gem provides few tools to make testing of API endpoint in your Rails application more effective.
+
+[![RSpec flow part 1](http://img.youtube.com/vi/YkZYNlUHHOg/1.jpg)](http://www.youtube.com/watch?v=YkZYNlUHHOg) [![RSpec flow part 2](http://img.youtube.com/vi/CB60JdImYC4/2.jpg)](http://www.youtube.com/watch?v=CB60JdImYC4)
+
 This rules were influenced by real projects experience so
 In order to use it in your `rspec/requests` specs you need to follow one rule:
 
-    For every test example you need to define `path`, `valid_headers`, `valid_params`, and `expected_response`.
+    For every test example you need to define path, headers, params, and expected_response.
 
     NOTE: version 0.1.1 introduced the helpers which ensure naming conventions. They have identical names and in fact are
     wrappers around RSpec `let` functionality.
@@ -36,6 +39,18 @@ database do
 end
 ```
 
+Since version 0.2.1 there is an ability to define regular variables which text example depends on in separate block with handy syntax support
+
+```ruby
+vars do
+  variant_id { variant.id }
+  issue_id { issue.id }
+  issue_message { 'Packed 5 instead of 3 items' }
+  item_id { item.id }
+  mispick_report { MispickReport.last }
+end
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -56,7 +71,7 @@ In project directory run
 
     $ rails g rspec_request_helpers:install
 
-## Usage
+## Configuration
 
 Include helpers into RSpec
 
@@ -73,8 +88,6 @@ RSpec.configure do |config|
 end
 ```
 
-## Configuration
-
 Create file `config/initializers/rspec_request_helpers.rb`
 
 ```ruby
@@ -86,8 +99,13 @@ RspecRequestHelpers.configure do |config|
   config.status_codes  = [404, 401, 422, 200, 201]
 end
 ```
+## Usage
 
-Generate new file for API endpoint
+### Generate new rspec file for API endpoint
+
+    $ rails g rspec:endpoint <action name> <namespaced controller>
+
+    Example:
 
     $ rails g rspec:endpoint show api/v1/users
 
