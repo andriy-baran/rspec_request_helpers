@@ -103,11 +103,11 @@ end
 
 ### Generate new rspec file for API endpoint
 
-    $ rails g rspec:endpoint <action name> <namespaced controller>
+    $ rails g rspec:endpoint <action name>
 
     Example:
 
-    $ rails g rspec:endpoint show api/v1/users
+    $ rails g rspec:endpoint api/v1/users/show
 
 ## Development
 

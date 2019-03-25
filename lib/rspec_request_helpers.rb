@@ -2,7 +2,6 @@ require 'rspec_request_helpers/version'
 require 'rspec_request_helpers/configuration'
 require 'rspec_request_helpers/helpers'
 require 'rack'
-require 'pry'
 
 module RspecRequestHelpers
   SYMBOL_TO_STATUS_CODE = Rack::Utils::SYMBOL_TO_STATUS_CODE

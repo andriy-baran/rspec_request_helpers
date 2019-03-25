@@ -3,11 +3,11 @@ RSpec.describe '', type: :request do
   <%= "let(#{param}) { #{rand(99..500)} }" %>
   <% end %>
   path { "<%= @path %>" }
-  valid_headers  { {} }
-  valid_params   { {} }
+  headers  { {} }
+  params   { {} }
   expected_response { {} }
 
-  describe '<%= @http_verb.upcase %> <%= controller %>#<%= file_name %>' do
+  describe '<%= @http_verb.upcase %> <%= class_path.join('/') %>#<%= file_name %>' do
     context '' do
       xit 'renders correct response' do
         do_<%= @http_verb.downcase %>
