@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rspec_request_helpers (0.2.2)
+    rspec_request_helpers (0.2.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       factory_bot

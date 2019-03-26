@@ -11,9 +11,9 @@ module RspecRequestHelpers
 
           case method_name
           when /list!$/
-            replace(node.loc.expression, "let!(:#{method_name.to_s.sub(/list!$/,'')}) { FactoryBot.create_list(#{factory_attrs}) }")
+            replace(node.loc.expression, "let!(:#{method_name.to_s.sub(/_list!$/,'')}) { FactoryBot.create_list(#{factory_attrs}) }")
           when /list$/
-            replace(node.loc.expression, "let(:#{method_name.to_s.sub(/list$/,'')}) { FactoryBot.create_list(#{factory_attrs}) }")
+            replace(node.loc.expression, "let(:#{method_name.to_s.sub(/_list$/,'')}) { FactoryBot.create_list(#{factory_attrs}) }")
           when /!$/
             replace(node.loc.expression, "let!(:#{method_name.to_s.sub(/!$/,'')}) { FactoryBot.create(#{factory_attrs}) }")
           else
