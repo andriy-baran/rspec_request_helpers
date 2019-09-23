@@ -1,4 +1,3 @@
-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rspec_request_helpers/version'
@@ -35,13 +34,12 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'activesupport', version_string
   spec.add_runtime_dependency 'actionpack',    version_string
   spec.add_runtime_dependency 'railties',      version_string
-  spec.add_runtime_dependency 'factory_bot'
+  spec.add_runtime_dependency 'rspec', '>= 2.4'
 
-  spec.add_dependency 'rspec', '~> 3.0'
-  spec.add_dependency 'rack', '~> 2.0'
-  spec.add_dependency 'parser'
+  spec.add_dependency 'rack'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'pry'
 end
