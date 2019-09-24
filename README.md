@@ -1,24 +1,45 @@
 # Rspec Request Helpers
 
-This gem provides few tools to make testing of API endpoint in your Rails application more effective.
-
-[![RSpec flow part 1](http://img.youtube.com/vi/YkZYNlUHHOg/1.jpg)](http://www.youtube.com/watch?v=YkZYNlUHHOg) [![RSpec flow part 2](http://img.youtube.com/vi/CB60JdImYC4/2.jpg)](http://www.youtube.com/watch?v=CB60JdImYC4)
+This gem provides few helpers for request testing
 
 This rules were influenced by real projects experience so
-In order to use it in your `rspec/requests` specs you need to follow one rule:
+In order to use it for your `rspec/requests` specs you need to follow convention
 
-    For every test example you need to define path, headers, params, and expected_response.
+```ruby
+  RSpec.describe 'Some API' do
+    path { '/api/v1/posts' }
+    headers do
+      {
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json',
+        'X-App-Token' => user.api_key
+      }
+    end
+    params do
+      {
+        name: name,
+        description: description,
+        author_id: author_id
+      }
+    end
+    response do
+      { id: 123, name: name, description: description, author: 'Bob Poster' }
+    end
 
-    NOTE: version 0.1.1 introduced the helpers which ensure naming conventions. They have identical names and in fact are
-    wrappers around RSpec `let` functionality.
+    it `creates post` do
+      # Ex. do_post_and_assert_201_json_parsed
+    end
+  end
+```
 
 So what you'll got for that? - Few handy methods for the testing routine
 
 | Action | Meaning | RSpec Example |
 |---|---|---|
-| `do_get`, `do_post`, `do_put`, `do_delete`, `do_patch` | Sends apropriate request to endpoint with valid params and headers | `get(path, valid_params, valid_headers)` |
+| `do_get`, `do_post`, `do_put`, `do_delete`, `do_patch` | Sends apropriate request to endpoint with valid params and headers | `get(path, params, headers)` |
 | `assert_201_json`, `assert_404_xml`, `assert_422_json` etc | Assert response status code and mime type (Dynamicly generated based on config ) | `expect(response).to have_http_status(status)`<br>`expect(response.content_type).to eq mime_type` |
-| `do_post_and_assert_201_json_response_body` | Shorthand for asserting content type, HTTP status code and if parsed body of the response is equal to | `expect(parsed_body).to eq(expected_response)` |
+| `assert_200_json_raw`, `assert_201_json_hash`, `assert_201_json_object` | Same as above plus check against raw, hash or object presentation of response | `expect(response_body).to eq(expected_response)`
+| `do_post_and_assert_201_json_parsed` | Shorthand for asserting content type, HTTP status code and if parsed body of the response is equal to | `expect(response_hash).to eq(expected_response)` |
 
 ## Installation
 

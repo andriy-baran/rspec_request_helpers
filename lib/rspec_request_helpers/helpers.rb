@@ -13,7 +13,7 @@ module RspecRequestHelpers
         let(:headers, &block)
       end
 
-      def expected_response(&block)
+      def response(&block)
         let(:expected_response, &block)
       end
     end
@@ -31,27 +31,27 @@ module RspecRequestHelpers
     end
 
     def response_body
-      JSON.parse(response.body, symbolize_names: true)
+      response.body
     end
 
-    def response_object
-      OpenStruct.new(responce_body)
+    def response_hash
+      parse_json(response_body)
     end
 
     def response_objects
-      JSON.parse(response.body, object_class: OpenStruct)
+      JSON.parse(response_body, object_class: OpenStruct)
     end
 
-    def assert_body
-      expect(response.body).to eq expected_response
+    def assert_raw
+      expect(response_body).to eq expected_response
     end
 
-    def assert_response_object
-      expect(response_object).to have_attributes(expected_response)
+    def assert_object
+      expect(response_objects).to have_attributes(expected_response)
     end
 
-    def assert_response_body
-      expect(response_body).to eq(expected_response)
+    def assert_hash
+      expect(response_hash).to eq(expected_response)
     end
 
     def self.generate_helpers
@@ -69,7 +69,7 @@ module RspecRequestHelpers
 
         RspecRequestHelpers.configuration.content_types.each do |type, mime_type|
           RspecRequestHelpers.configuration.symbols_with_status_codes.each do |status, code|
-            %i(body response_object response_body).each do |resp_assertion|
+            %i(raw hash object).each do |resp_assertion|
               define_method :"assert_#{code}_#{type}" do
                 expect(response).to have_http_status(status)
                 expect(response.content_type).to eq mime_type
