@@ -23,8 +23,12 @@ module Rspec
       @path_params.each do |param|
         @path.sub!(param, '#{' + param[1..-1] + '}')
       end
-      empty_directory Pathname.new('spec/requests').join(*class_path)
-      template 'action_request_spec.rb', "spec/requests/#{file_path}_spec.rb"
+      if behavior == :revoke
+        template 'action_request_spec.rb', "spec/requests/#{file_path}_spec.rb"
+      elsif behavior == :invoke
+        empty_directory Pathname.new('spec/requests').join(*class_path)
+        template 'action_request_spec.rb', "spec/requests/#{file_path}_spec.rb"
+      end
     end
   end
 end
