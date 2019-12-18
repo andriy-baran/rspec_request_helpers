@@ -3,9 +3,9 @@ RSpec.describe '', type: :request do
   <%= "let(#{param}) { #{rand(99..500)} }" %>
   <% end %>
   path { "<%= @path %>" }
-  headers  { {} }
+  headers  { {'Content-Type' => 'application/json', 'Accept' => 'application/json'} }
   params   { {} }
-  expected_response { {} }
+  response { {} }
 
   describe '<%= @http_verb.upcase %> <%= class_path.join('/') %>#<%= file_name %>' do
     context '' do
