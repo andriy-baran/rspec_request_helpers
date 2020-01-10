@@ -57,10 +57,12 @@ module RspecRequestHelpers
     def self.generate_helpers
       %i(get post put patch delete).each do |http_verb|
         define_method :"do_#{http_verb}" do
-          is_not_json_get = (http_verb == :get || headers['Content-Type'] != 'application/json')
-          params_require_normalization = Rails::VERSION::MAJOR < 4 && is_not_json_get
-          normalized_params = params_require_normalization ? params : params.to_json
-          if Rails::VERSION::MAJOR >= 5
+          is_not_get = http_verb != :get
+          is_json = headers['Content-Type'] == 'application/json'
+          is_new_rails = 3 < Rails::VERSION::MAJOR
+          params_require_normalization = is_new_rails && is_json && is_not_get
+          normalized_params = params_require_normalization ? params.to_json : params
+          if 4 < Rails::VERSION::MAJOR
             public_send(http_verb, path, params: normalized_params, headers: headers)
           else
             public_send(http_verb, path, normalized_params, headers)
