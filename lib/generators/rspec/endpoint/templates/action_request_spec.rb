@@ -1,3 +1,9 @@
+#!/usr/bin/ruby
+# @Author: Andrii Baran
+# @Date:   2019-12-18 11:29:56
+# @Last Modified by:   Andrii Baran
+# @Last Modified time: 2020-01-16 12:17:16
+
 RSpec.describe '', type: :request do
   <% @path_params.each do |param| %>
   <%= "let(#{param}) { #{rand(99..500)} }" %>

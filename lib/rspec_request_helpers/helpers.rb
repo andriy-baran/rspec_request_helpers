@@ -1,3 +1,9 @@
+#!/usr/bin/ruby
+# @Author: Andrii Baran
+# @Date:   2020-01-10 17:30:02
+# @Last Modified by:   Andrii Baran
+# @Last Modified time: 2020-01-16 12:17:47
+
 module RspecRequestHelpers
   module Helpers
     module ClassMethods

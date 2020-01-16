@@ -1,3 +1,9 @@
+#!/usr/bin/ruby
+# @Author: Andrii Baran
+# @Date:   2019-12-18 13:04:57
+# @Last Modified by:   Andrii Baran
+# @Last Modified time: 2020-01-16 12:17:23
+
 module Rspec
   class EndpointGenerator < Rails::Generators::NamedBase
     source_root File.expand_path('../templates', __FILE__)

@@ -1,3 +1,9 @@
+#!/usr/bin/ruby
+# @Author: Andrii Baran
+# @Date:   2019-12-09 15:05:38
+# @Last Modified by:   Andrii Baran
+# @Last Modified time: 2020-01-16 12:17:28
+
 RspecRequestHelpers.configure do |config|
   # Responces content type and shorthand as key
   # The key will be used for the generation of helpers names

@@ -1,3 +1,9 @@
+#!/usr/bin/ruby
+# @Author: Andrii Baran
+# @Date:   2019-12-09 15:05:38
+# @Last Modified by:   Andrii Baran
+# @Last Modified time: 2020-01-16 12:18:25
+
 require 'rspec_request_helpers/version'
 require 'rspec_request_helpers/configuration'
 require 'rspec_request_helpers/helpers'

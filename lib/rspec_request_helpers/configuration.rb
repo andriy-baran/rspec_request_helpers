@@ -1,3 +1,9 @@
+#!/usr/bin/ruby
+# @Author: Andrii Baran
+# @Date:   2019-12-09 15:05:38
+# @Last Modified by:   Andrii Baran
+# @Last Modified time: 2020-01-16 12:17:37
+
 module RspecRequestHelpers
   class Configuration
     attr_accessor :content_types, :status_codes
