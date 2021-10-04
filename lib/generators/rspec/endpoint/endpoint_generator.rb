@@ -8,21 +8,12 @@ module Rspec
   class EndpointGenerator < Rails::Generators::NamedBase
     source_root File.expand_path('../templates', __FILE__)
 
-    # https://www.rubytapas.com/2012/11/28/episode-029-redirecting-output/
-    def capture_output
-      fake_stdout = StringIO.new
-      old_stdout = $stdout
-      $stdout = fake_stdout
-      yield
-    ensure
-      $stdout = old_stdout
-      return fake_stdout.string
-    end
-
     def copy_files
-      Rails.application.load_tasks
-      routes = capture_output { Rake::Task['routes'].invoke }
-      @route = routes.split("\n").grep(Regexp.new "#{class_path.join('/')}##{file_name}").first || raise("#{class_path.join('/')}##{file_name} not found in routes")
+      routes = Rails.application.routes.routes
+      route_regexp = Regexp.new("#{class_path.join('/')}##{file_name}"))
+      rails_route = routes.detect { |r| r.path.spec.to_s.match(route_regexp) }
+      rails_route || raise("#{class_path.join('/')}##{file_name} not found in routes")
+      @route = rails_route.path.spec.to_s
       @http_verb = @route[/GET|POST|DELETE|PUT|PATCH/]
       @path = @route[/(\/.*)\(/, 1]
       @path_params = @path.split('/').select{|i| i[/:/]}
