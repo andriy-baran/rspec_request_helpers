@@ -11,10 +11,10 @@ module Rspec
     def copy_files
       routes = Rails.application.routes.routes
       route_regexp = Regexp.new("#{class_path.join('/')}##{file_name}")
-      rails_route = routes.detect { |r| r.path.spec.to_s.match(route_regexp) }
+      rails_route = routes.detect { |r| ActionDispatch::Routing::RouteWrapper.new(r).endpoint.match(route_regexp) }
       rails_route || raise("#{class_path.join('/')}##{file_name} not found in routes")
       @route = rails_route.path.spec.to_s
-      @http_verb = @route[/GET|POST|DELETE|PUT|PATCH/]
+      @http_verb = rails_route.verb
       @path = @route[/(\/.*)\(/, 1]
       @path_params = @path.split('/').select{|i| i[/:/]}
       @path_params.each do |param|
