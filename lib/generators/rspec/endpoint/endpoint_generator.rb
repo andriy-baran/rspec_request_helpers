@@ -10,7 +10,7 @@ module Rspec
 
     def copy_files
       routes = Rails.application.routes.routes
-      route_regexp = Regexp.new("#{class_path.join('/')}##{file_name}"))
+      route_regexp = Regexp.new("#{class_path.join('/')}##{file_name}")
       rails_route = routes.detect { |r| r.path.spec.to_s.match(route_regexp) }
       rails_route || raise("#{class_path.join('/')}##{file_name} not found in routes")
       @route = rails_route.path.spec.to_s
